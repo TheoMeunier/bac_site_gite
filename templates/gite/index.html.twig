@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello GiteController!{% endblock %}
+
+{% block body %}
+    <h1>Nos différents gite</h1>
+
+<div class="row row-cols-1 row-cols-md-2">
+    {% for gite in gite  %}
+        <div class="col mb-4">
+            <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ gite.name }}</h5>
+                    <p class="card-text">{{ gite.description }}</p>
+                    <a href="{{ path('gite_show', {id: gite.id}) }}" class="btn btn-primary">En savoir plus</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

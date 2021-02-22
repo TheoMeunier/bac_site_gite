@@ -28,6 +28,9 @@ cc: ## on vide le cache
 controller: ## On crée un controller
 	php bin/console make:controller
 
+form: ## On crée un formulaire
+	docker-compose exec web sh -c 'php bin/console make:form'
+
 entity: ## On crée une entité
 	docker-compose exec web sh -c 'php bin/console make:entity'
 

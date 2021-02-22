@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminGiteController!{% endblock %}
+
+{% block body %}
+    <h1>Admin Gite</h1>
+
+    <div class="div_btn_admin">
+        <a href="{{ path('admin_new_gite' ) }} " class="btn btn-primary" type="button">Crée un gite</a>
+    </div>
+
+    <table class="table ">
+        <thead class="thead">
+        <tr>
+            <th>Id</th>
+            <th>Titre</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+
+        <tbody class="tbody">
+        {% for gite in gite %}
+            <tr>
+                <th>{{ gite.id }}</th>
+                <th>{{ gite.name }}</th>
+                <th>
+                    <div class="div_btn">
+                        <a href="{{ path('admin_edit_gite', {id : gite.id}) }}" class="btn btn-primary">Editer</a>
+                        <form method="post" action="{{ path('admin_delete_gite', {id: gite.id}) }}" style="display: inline-block" onsubmit="return confirm('Etes vous vraiment sur ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ gite.id) }}">
+                            <button class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </div>
+                </th>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
