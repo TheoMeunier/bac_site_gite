@@ -26,7 +26,10 @@ cc: ## on vide le cache
 	php bin/conole c:c
 
 controller: ## On crée un controller
-	php bin/console male:controller
+	php bin/console make:controller
+
+entity: ## On crée une entité
+	docker-compose exec web sh -c 'php bin/console make:entity'
 
 migration: ## on crée une migration
 	docker-compose exec web sh -c 'php bin/console make:migration'
