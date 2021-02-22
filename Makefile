@@ -14,7 +14,7 @@ stop: ## Arreter les container docker
 rm: stop ## Supprimer les container docker
 	docker-compose rm -f
 
-#Composer
+## —— Composer ———————————————————————————————————————————————————————————————
 install: ## On install composer
 	composer install
 
