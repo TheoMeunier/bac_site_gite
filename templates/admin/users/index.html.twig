@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+    <h1>Administration Utilisateurs</h1>
+
+    <table class="table mt4">
+        <thead class="thead">
+        <tr>
+            <th>ID</th>
+            <th>Speudo</th>
+            <th>Email</th>
+            <th>Rôles</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+
+        <tbody class="tbody">
+        {% for user in user %}
+            <tr>
+                <th>{{ user.id }}</th>
+                <th>{{ user.speudo }}</th>
+                <th>{{ user.email }}</th>
+                <th>
+                    {% for role in user.roles %}
+                        {% if role == "ROLE_USER" %}
+                            Utilisateur
+                        {% elseif role == "ROLE_EDITOR" %}
+                            Editeur
+                        {% elseif role == "ROLE_MODO" %}
+                            Modérateur
+                        {% elseif role == "ROLE_ADMIN" %}
+                            Administrateur
+                        {% endif %}
+                    {% endfor %}
+                </th>
+                <th>
+                    <div class="div_btn">
+                        <a href="{{ path('admin_edit_user', {'id' : user.id}) }}" class="btn btn-primary">
+                            Modifier</a>
+                        <form method="post" action="{{ path('admin_delete_user', {id: user.id}) }}"
+                              style="display: inline-block" onsubmit="return confirm('Etes vous vraiment sur ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+                            <button class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </div>
+                </th>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Il n'y a pas d'utilisateur</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+
+{% endblock %}

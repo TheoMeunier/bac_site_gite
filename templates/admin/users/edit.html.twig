@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+
+    <h1 class="mt-4">Modifier l'utilisateurs</h1>
+
+    <div class="form">
+        {{ form_start(userFrom) }}
+        <div class="form_content">
+            <div class="form_sub_content">
+                {{ form_rest(userFrom) }}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Modifer</button>
+        {{ form_end(userFrom) }}
+    </div>
+{% endblock %}
