@@ -1,28 +1,34 @@
 <div class="form-group">
     {{ form_start(form) }}
-    {{ form_row(form.name) }}
-    {{ form_row(form.surface) }}
-    {{ form_row(form.chambres) }}
-    {{ form_row(form.personnes) }}
-    {{ form_row(form.price) }}
-    {{ form_row(form.image) }}
-    {{ form_row(form.description) }}
-
-    {# Vérifier si la route est 'edit' on affiche les images #}
-    {% if  app.request.attributes.get('_route') == 'admin_edit_gite' %}
-        <h2>Images</h2>
-        <div class="row flex justify-content-start flex-wrap">
-            {% for imageGites in gite.imageGites %}
-                <div class="col" style="width: 100px; flex: none; margin: 5px">
-                    <img src="{{ asset('/uploads/' ~ imageGites.name) }}" alt="image" width="100px" height="auto">
-                    <a href="{{ path('admin_delete_image', {id: imageGites.id}) }}" data-delete
-                       data-token="{{ csrf_token('delete' ~ imageGites.id) }}" class="btn btn-danger mt-2">
-                        Supprimer
-                    </a>
+    <div class="row">
+        <div class="col-md-4">{{ form_row(form.name) }} </div>
+        <div class="col-md-4">{{ form_row(form.surface) }}</div>
+        <div class="col-md-4">
+            {# Vérifier si la route est 'edit' on affiche les images #}
+            {% if  app.request.attributes.get('_route') == 'admin_edit_gite' %}
+                <div class="row flex justify-content-start flex-wrap">
+                    {% for imageGites in gite.imageGites %}
+                        <div class="col" style="width: 100px; flex: none; margin: 5px">
+                            <img src="{{ asset('/uploads/' ~ imageGites.name) }}" alt="image" width="100px" height="auto">
+                            <a href="{{ path('admin_delete_image', {id: imageGites.id}) }}" data-delete
+                               data-token="{{ csrf_token('delete' ~ imageGites.id) }}" class="btn btn-danger mt-2 mb-2">
+                                Supprimer
+                            </a>
+                        </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
+            {% endif %}
         </div>
-    {% endif %}
+    </div>
+    <div class="row">
+        <div class="col-md-4">{{ form_row(form.chambres) }}</div>
+        <div class="col-md-4">{{ form_row(form.personnes) }}</div>
+        <div class="col-md-4">{{ form_row(form.price) }}</div>
+    </div>
+    <div>
+        {{ form_row(form.image) }}
+        {{ form_row(form.description) }}
+    </div>
 
     <button type="submit" class="btn btn-primary">Enregistrer</button>
     {{ form_end(form) }}

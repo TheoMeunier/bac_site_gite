@@ -7,12 +7,12 @@
            and uncomment the following Encore helpers to start using Symfony UX #}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.css"
           integrity="sha256-uq9PNlMzB+1h01Ij9cx7zeE2OR2pLAfRw3uUUOOPKdA=" crossorigin="anonymous">
-    {% block stylesheets %}
-        {{ encore_entry_link_tags('app') }}
-    {% endblock %}
+    {{ encore_entry_link_tags('app') }}
 
 
 </head>
+
+<body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -53,14 +53,11 @@
         {% endif %}
     </div>
 </nav>
-<body>
 <div class="container">
     {% block body %}{% endblock %}
 </div>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.js"
         integrity="sha256-DBxkGZLxKsLKhz054qUpBqtotG00r9AELGpSigJujLg=" crossorigin="anonymous"></script>
-{% block javascripts %}
-    {{ encore_entry_script_tags('app') }}
-{% endblock %}
+{{ encore_entry_script_tags('app') }}
 </body>
 </html>
