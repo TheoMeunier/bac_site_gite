@@ -3,20 +3,17 @@
 {% block title %}Calendar index{% endblock %}
 
 {% block body %}
-    <h1>Calendar index</h1>
+    <h1 class="mt-3">Calendar index</h1>
+
+    <a href="{{ path('admin_new_reservation') }}" class="btn btn-primary mb-3">Crée une réservation</a>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Title</th>
-                <th>Start</th>
-                <th>End</th>
-                <th>Description</th>
-                <th>All_day</th>
-                <th>Background_color</th>
-                <th>Border_color</th>
-                <th>Text_color</th>
+                <th>arriver</th>
+                <th>depart</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -27,14 +24,13 @@
                 <td>{{ calendar.title }}</td>
                 <td>{{ calendar.start ? calendar.start|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ calendar.end ? calendar.end|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ calendar.description }}</td>
-                <td>{{ calendar.allDay ? 'Yes' : 'No' }}</td>
-                <td>{{ calendar.backgroundColor }}</td>
-                <td>{{ calendar.borderColor }}</td>
-                <td>{{ calendar.textColor }}</td>
                 <td>
-                    <a href="{{ path('calendar_show', {'id': calendar.id}) }}">show</a>
-                    <a href="{{ path('calendar_edit', {'id': calendar.id}) }}">edit</a>
+                    <a href="{{ path('admin_edit_reservation', {'id': calendar.id}) }}" class="btn btn-primary">Modifier</a>
+                    <form method="post" action="{{ path('admin_delete_reservation', {id: calendar.id}) }}" style="display: inline-block" onsubmit="return confirm('Etes vous vraiment sur ?')">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ calendar.id) }}">
+                        <button class="btn btn-danger">Supprimer</button>
+                    </form>
                 </td>
             </tr>
         {% else %}
@@ -45,5 +41,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('calendar_new') }}">Create new</a>
+
 {% endblock %}
