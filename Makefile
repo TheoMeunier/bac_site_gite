@@ -31,6 +31,9 @@ controller: ## On crée un controller
 form: ## On crée un formulaire
 	docker-compose exec web sh -c 'php bin/console make:form'
 
+crud: ## On crée un formulaire
+	docker-compose exec web sh -c 'php bin/console make:crud'
+
 entity: ## On crée une entité
 	docker-compose exec web sh -c 'php bin/console make:entity'
 
