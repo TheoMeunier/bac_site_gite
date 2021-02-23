@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\GiteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -26,11 +28,6 @@ class Gite
      * @ORM\Column(type="text")
      */
     private $description;
-
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $image;
 
     /**
      * @ORM\Column(type="datetime")
@@ -57,10 +54,16 @@ class Gite
      */
     private $personnes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ImageGite::class, mappedBy="gite", orphanRemoval=true, cascade={"persist"})
+     */
+    private $imageGites;
+
 
     public function __construct()
     {
         $this->createdAt = new \DateTime();
+        $this->imageGites = new ArrayCollection();
     }
 
 
@@ -161,6 +164,36 @@ class Gite
     public function setPersonnes(string $personnes): self
     {
         $this->personnes = $personnes;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ImageGite[]
+     */
+    public function getImageGites(): Collection
+    {
+        return $this->imageGites;
+    }
+
+    public function addImageGite(ImageGite $imageGite): self
+    {
+        if (!$this->imageGites->contains($imageGite)) {
+            $this->imageGites[] = $imageGite;
+            $imageGite->setGite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImageGite(ImageGite $imageGite): self
+    {
+        if ($this->imageGites->removeElement($imageGite)) {
+            // set the owning side to null (unless already changed)
+            if ($imageGite->getGite() === $this) {
+                $imageGite->setGite(null);
+            }
+        }
 
         return $this;
     }

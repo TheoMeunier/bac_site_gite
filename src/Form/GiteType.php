@@ -21,7 +21,11 @@ class GiteType extends AbstractType
             ->add('personnes', TextType::class)
             ->add('price', TextType::class)
             ->add('description', TextareaType::class)
-            ->add('image', FileType::class, array('data_class' => null,'required' => false))
+            ->add('image', FileType::class, [
+                'multiple' => true,
+                'mapped' => false,
+                'required' => false
+            ])
         ;
     }
 

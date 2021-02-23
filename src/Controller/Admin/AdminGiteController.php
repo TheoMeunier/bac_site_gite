@@ -3,10 +3,12 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Gite;
+use App\Entity\ImageGite;
 use App\Form\GiteType;
 use App\Repository\GiteRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -44,6 +46,25 @@ class AdminGiteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            //on recupere les images transmises
+            $images = $form->get('image')->getData();
+
+            // on blouce sur les images
+            foreach ($images as $image) {
+                //on génère un nouveau nom de fichier
+                $ficher = md5(uniqid()) . '.' . $image->guessExtension();
+                //on copier le ficher dans le dossier upload
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $ficher
+                );
+                //on stock image dans la db
+                $img = new ImageGite();
+                $img->setName($ficher);
+                $gite->addImageGite($img);
+            }
+
             $this->em->persist($gite);
             $this->getDoctrine()->getManager()->flush();
 
@@ -66,6 +87,24 @@ class AdminGiteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            //on recupere les images transmises
+            $images = $form->get('image')->getData();
+
+            // on blouce sur les images
+            foreach ($images as $image) {
+                //on génère un nouveau nom de fichier
+                $ficher = md5(uniqid()) . '.' . $image->guessExtension();
+                //on copier le ficher dans le dossier upload
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $ficher
+                );
+                //on stock image dans la db
+                $img = new ImageGite();
+                $img->setName($ficher);
+                $gite->addImageGite($img);
+            }
 
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Votre actircle a bien ete modifier');
@@ -93,5 +132,31 @@ class AdminGiteController extends AbstractController
         }
 
         return $this->redirectToRoute('admin_gite');
+    }
+
+    /**
+     * @Route("/supprime/image/{id}", name="delete_image", methods={"DELETE"})
+     */
+    public function deleteImage(ImageGite $image, Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        // On vérifie si le token est valide
+        if($this->isCsrfTokenValid('delete'.$image->getId(), $data['_token'])){
+            // On récupère le nom de l'image
+            $nom = $image->getName();
+            // On supprime le fichier
+            unlink($this->getParameter('images_directory').'/'.$nom);
+
+            // On supprime l'entrée de la base
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($image);
+            $em->flush();
+
+            // On répond en json
+            return new JsonResponse(['success' => 1]);
+        }else{
+            return new JsonResponse(['error' => 'Token Invalide'], 400);
+        }
     }
 }
