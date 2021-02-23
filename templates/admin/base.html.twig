@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Welcome!{% endblock %}</title>
-    {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.css"
           integrity="sha256-uq9PNlMzB+1h01Ij9cx7zeE2OR2pLAfRw3uUUOOPKdA=" crossorigin="anonymous">
     {% block stylesheets %}
@@ -18,10 +16,13 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{{ path('home') }}">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ path('gite') }}">Gite</a>
+                <a class="nav-link" href="{{ path('admin_gite') }}">Gite</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('admin_reservation') }}">Réservation</a>
             </li>
         </ul>
 
@@ -39,15 +40,6 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a href="{{ path('app_logout') }}" class="nav-link">Se déconnecter</a>
-                </li>
-            </ul>
-        {% else %}
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a href="{{ path('app_login') }}" class="nav-link">Se connecter</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ path('app_register') }}" class="nav-link">Crée un compte</a>
                 </li>
             </ul>
         {% endif %}

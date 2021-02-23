@@ -30,7 +30,6 @@ class GiteController extends AbstractController
      */
     public function show (int $id, GiteRepository $gite): Response
     {
-
         return $this->render('gite/show.html.twig', [
             'gite' => $gite->find($id)
         ]);

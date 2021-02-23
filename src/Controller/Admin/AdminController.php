@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminController extends AbstractController
 {
     /**
-     * @Route("/", name="admin")
+     * @Route("/", name="home")
      */
     public function index(CalendarRepository $calendar): Response
     {
