@@ -9,4 +9,6 @@
 import './scss/style.scss';
 
 // start the Stimulus application
-import './bootstrap';
+import $ from 'jquery';
+import popper from 'popper.js';
+import bootstrap from 'bootstrap';
