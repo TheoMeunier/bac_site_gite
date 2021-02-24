@@ -46,15 +46,14 @@
                 <h2>{{ gite.chambres }} chambres - {{ gite.surface }} m2</h2>
                 <div class="text-primary" style="font-size: 4em; font-weight: bold">{{ gite.price }}€</div>
 
-                <button type="button" class="mt-4 btn btn-primary ">
+                <button type="button" id="btn-contact" class="mt-4 btn btn-primary ">
                     Contacter l'agence
                 </button>
                 <a href=""
                    class="mt-4 btn btn-primary pull-right">Imprimer le PDF
                 </a>
 
-                <div id="contactForm"
-                     class="mt-4" >
+                <div id="contactForm" class="mt-4 cache_form">
                     {{ form_start(form) }}
                     <div class="row">
                         <div class="col">{{ form_row(form.firstname) }} </div>
@@ -71,8 +70,6 @@
                     {{ form_end(form) }}
                 </div>
             </div>
-
-
         </div>
     </div>
 {% endblock %}

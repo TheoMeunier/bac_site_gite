@@ -1,1 +1,20 @@
 @import "~bootstrap/scss/bootstrap";
+
+.active_btn{
+  display: block;
+  animation: slidetop 1s;
+}
+.cache_form{
+  display: none;
+}
+
+@keyframes slidetop {
+  from{
+    transform: translateY(0);
+    opacity: 0;
+  }
+  to{
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
