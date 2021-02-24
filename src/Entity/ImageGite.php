@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ImageGiteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -23,6 +24,7 @@ class ImageGite
     private $name;
 
     /**
+     * @var ArrayCollection
      * @ORM\ManyToOne(targetEntity=Gite::class, inversedBy="imageGites")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -45,7 +47,7 @@ class ImageGite
         return $this;
     }
 
-    public function getGite(): ?Gite
+    public function getGite(): ArrayCollection
     {
         return $this->gite;
     }

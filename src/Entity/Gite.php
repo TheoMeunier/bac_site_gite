@@ -55,6 +55,7 @@ class Gite
     private $personnes;
 
     /**
+     * @var ArrayCollection
      * @ORM\OneToMany(targetEntity=ImageGite::class, mappedBy="gite", orphanRemoval=true, cascade={"persist"})
      */
     private $imageGites;
@@ -92,18 +93,6 @@ class Gite
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(string $image): self
-    {
-        $this->image = $image;
 
         return $this;
     }
@@ -174,6 +163,14 @@ class Gite
     public function getImageGites(): Collection
     {
         return $this->imageGites;
+    }
+
+    public function getImageGite(): ?ImageGite
+    {
+        if ($this->imageGites->isEmpty()) {
+            return null;
+        }
+        return $this->imageGites->first();
     }
 
     public function addImageGite(ImageGite $imageGite): self

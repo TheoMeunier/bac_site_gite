@@ -9,7 +9,9 @@
     {% for gite in gite  %}
         <div class="col mb-4">
             <div class="card">
-                <img src="..." class="card-img-top" alt="...">
+                {% if gite.imageGite %}
+                    <img src="{{ asset('/uploads/' ~ gite.imageGite.name) | imagine_filter('thumb')}}" class="card-img-top" alt="...">
+                {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ gite.name }}</h5>
                     <p class="card-text">{{ gite.description }}</p>

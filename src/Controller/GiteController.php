@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Contact;
+use App\Entity\Gite;
 use App\Repository\GiteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,10 +30,10 @@ class GiteController extends AbstractController
      * @param GiteRepository $gite
      * @return Response
      */
-    public function show (int $id, GiteRepository $gite): Response
+    public function show (int $id, GiteRepository $giteRepository): Response
     {
         return $this->render('gite/show.html.twig', [
-            'gite' => $gite->find($id)
+            'gite' => $giteRepository->find($id),
         ]);
     }
 }
