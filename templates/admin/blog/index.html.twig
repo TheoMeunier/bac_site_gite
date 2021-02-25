@@ -1,0 +1,40 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Nos gites{% endblock %}
+
+{% block body %}
+    <h1 class="mt-3">Nos Acticle</h1>
+
+    <div class="text-right mb-3">
+        <a href="{{ path('admin_new_blog' ) }} " class="btn btn-primary" type="button">Crée un article</a>
+    </div>
+
+    <table class="table ">
+        <thead class="thead">
+        <tr>
+            <th>Id</th>
+            <th>Titre</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+
+        <tbody class="tbody">
+        {% for blog in blog %}
+            <tr>
+                <th>{{ blog.id }}</th>
+                <th>{{ blog.title }}</th>
+                <th>
+                    <div class="div_btn">
+                        <a href="{{ path('admin_edit_blog', {id : blog.id}) }}" class="btn btn-primary">Editer</a>
+                        <form method="post" action="{{ path('admin_delete_blog', {id: blog.id}) }}" style="display: inline-block" onsubmit="return confirm('Etes vous vraiment sur ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ blog.id) }}">
+                            <button class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </div>
+                </th>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

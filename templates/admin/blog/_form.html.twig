@@ -1,0 +1,22 @@
+<div class="form-group">
+    {{ form_start(form) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.description) }}
+    {# Vérifier si la route est 'edit' on affiche les images #}
+    {% if  app.request.attributes.get('_route') == 'admin_edit_blog' %}
+        <div class="row flex justify-content-start flex-wrap">
+            {% for imageBlog in blog.imageBlogs %}
+                <div class="col" style="width: 100px; flex: none; margin: 5px">
+                    <img src="{{ asset('/uploads/' ~ imageBlog.name) }}" alt="image" width="100px" height="auto">
+                    <a href="{{ path('admin_blog_delete_image', {id: imageBlog.id}) }}" data-delete
+                       data-token="{{ csrf_token('delete' ~ imageBlog.id) }}" class="btn btn-danger mt-2 mb-2">
+                        Supprimer
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {{ form_row(form.image) }}
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+    {{ form_end(form) }}
+</div>
