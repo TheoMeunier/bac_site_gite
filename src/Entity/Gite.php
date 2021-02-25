@@ -6,6 +6,7 @@ use App\Repository\GiteRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 
 /**
  * @ORM\Entity(repositoryClass=GiteRepository::class)
@@ -67,7 +68,11 @@ class Gite
         $this->imageGites = new ArrayCollection();
     }
 
+    public function getSlug(): \Symfony\Component\String\AbstractUnicodeString
+    {
+        return (new AsciiSlugger())->slug($this->getName());
 
+    }
     public function getId(): ?int
     {
         return $this->id;

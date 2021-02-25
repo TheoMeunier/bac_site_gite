@@ -6,70 +6,85 @@
 
     <h1>coucou</h1>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8">
-                {% if gite.imageGites|length > 1 %}
-                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner">
-                            {% for imageGites in gite.imageGites %}
-                                <div class=" {% if loop.first %} carousel-item active {% else %} carousel-item {% endif %}">
-                                    <img src="{{ asset('/uploads/' ~ imageGites.name) | imagine_filter('medium') }}"
-                                         alt=""
-                                         class=" d-block w-100">
-                                </div>
-                            {% endfor %}
+    <div class="jumbotron">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    {% if gite.imageGites|length > 1 %}
+                        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                {% for imageGites in gite.imageGites %}
+                                    <div class=" {% if loop.first %} carousel-item active {% else %} carousel-item {% endif %}">
+                                        <img src="{{ asset('/uploads/' ~ imageGites.name) | imagine_filter('medium') }}"
+                                             alt=""
+                                             class=" d-block w-100">
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
+                               data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleControls" role="button"
+                               data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
                         </div>
-                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
-                           data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleControls" role="button"
-                           data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
 
-                {% else %}
-                    <div>
-                        <img src="{{ asset('/uploads/' ~ gite.imageGite.name) | imagine_filter('medium') }}" alt=""
-                             class=" d-block w-100">
+                    {% else %}
+                        <div>
+                            <img src="{{ asset('/uploads/' ~ gite.imageGite.name) | imagine_filter('medium') }}" alt=""
+                                 class=" d-block w-100">
+                        </div>
+                    {% endif %}
+                </div>
+
+
+                <div class="col-md-4">
+                    <h1>{{ gite.name }}</h1>
+                    <h2>{{ gite.chambres }} chambres - {{ gite.surface }} m2</h2>
+                    <div class="text-primary" style="font-size: 4em; font-weight: bold">{{ gite.price }}€</div>
+
+                    <button type="button" id="btn-contact" class="mt-4 btn btn-primary ">
+                        Contacter l'agence
+                    </button>
+                    <a href="{{ path('gite.pdf', {'id': gite.id}) }}"
+                       class="mt-4 btn btn-primary pull-right">Imprimer le PDF
+                    </a>
+
+                    <div id="contactForm" class="mt-4 cache_form">
+                        {{ form_start(form) }}
+                        <div class="row">
+                            <div class="col">{{ form_row(form.firstname) }} </div>
+                            <div class="col">{{ form_row(form.lastname) }} </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">{{ form_row(form.phone) }} </div>
+                            <div class="col">{{ form_row(form.email) }} </div>
+                        </div>
+                        {{ form_rest(form) }}
+                        <div class="form-group">
+                            <button class="btn btn-primary"> Nous contacter</button>
+                        </div>
+                        {{ form_end(form) }}
                     </div>
-                {% endif %}
+                </div>
             </div>
-
-
-            <div class="col-md-4">
-                <h1>{{ gite.name }}</h1>
-                <h2>{{ gite.chambres }} chambres - {{ gite.surface }} m2</h2>
-                <div class="text-primary" style="font-size: 4em; font-weight: bold">{{ gite.price }}€</div>
-
-                <button type="button" id="btn-contact" class="mt-4 btn btn-primary ">
-                    Contacter l'agence
-                </button>
-                <a href=""
-                   class="mt-4 btn btn-primary pull-right">Imprimer le PDF
-                </a>
-
-                <div id="contactForm" class="mt-4 cache_form">
-                    {{ form_start(form) }}
-                    <div class="row">
-                        <div class="col">{{ form_row(form.firstname) }} </div>
-                        <div class="col">{{ form_row(form.lastname) }} </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">{{ form_row(form.phone) }} </div>
-                        <div class="col">{{ form_row(form.email) }} </div>
-                    </div>
-                    {{ form_rest(form) }}
-                    <div class="form-group">
-                        <button class="btn btn-primary"> Nous contacter</button>
-                    </div>
-                    {{ form_end(form) }}
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 ">
+                    <h1 class="mt-5">Description</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos doloribus eius eligendi
+                        harum
+                        illum in nulla sequi, voluptatem. Aliquam cupiditate dignissimos excepturi iusto modi natus
+                        nulla
+                        perspiciatis quod sed, voluptatem?</p>
                 </div>
             </div>
         </div>
     </div>
+
 {% endblock %}

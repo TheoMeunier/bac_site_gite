@@ -6,6 +6,7 @@ use App\Entity\Contact;
 use App\Entity\Gite;
 use App\Form\ContactType;
 use App\Repository\GiteRepository;
+use App\wkhtml\PDFRender;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,6 +14,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class GiteController extends AbstractController
 {
+    const EXTENSION_PDF_FORMAT = ".pdf";
+
+    private GiteRepository $repository;
+    public function __constructor(GiteRepository $repository)
+    {
+        $this->repository = $repository;
+    }
 
     /**
      * @Route("/gite", name="gite")
@@ -51,5 +59,17 @@ class GiteController extends AbstractController
             'gite' => $giteRepository->find($id),
              'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/gite/pdf/{id}", name="gite.pdf")
+     */
+    public function generatePdf(int $id, PDFRender $pdf, GiteRepository $repository): Response
+    {
+        $html = $this->renderView('gite/pdf/gite.html.twig', [
+            'gite' => $repository->find($id),
+        ]);
+
+        return $pdf->render($html, $repository->find($id)->getSlug() . self::EXTENSION_PDF_FORMAT);
     }
 }

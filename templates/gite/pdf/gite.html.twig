@@ -1,0 +1,35 @@
+{% extends 'gite/pdf/base_pdf.html.twig' %}
+
+{% block title_pdf %}{{ gite.name }}{% endblock %}
+
+{% block body_pdf_content %}
+    <h2>Titre du bien : {{ gite.name }}</h2>
+    <div class="pdf-description">
+        {{ gite.description | nl2br }}
+    </div>
+    <div class="row">
+        <div class="col">
+            <h2>Description</h2>
+            <table class="table table-striped">
+                <tr>
+                    <td>{{ "show.surface" }}</td>
+                    <td>{{ gite.surface }} m2</td>
+                </tr>
+                <tr>
+                    <td>{{ "show.rooms" }}</td>
+                    <td>{{ gite.chambres }}</td>
+                </tr>
+                <tr>
+                    <td>{{ "show.bedrooms" }}</td>
+                    <td>{{ gite.personnes }}</td>
+                </tr>
+                <tr>
+            </table>
+        </div>
+    </div>
+    <div>
+        <img src="{{ asset(pdf_path_image_upload ~ gite.imageGite.name) }}" style="width: 10%"
+             class="img-fluid img-thumbnail"
+             alt="{{ gite.name }}">
+    </div>
+{% endblock %}
