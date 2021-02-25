@@ -44,6 +44,9 @@ class RegistrationController extends AbstractController
                 )
             );
 
+            //on va générer le token d'activation
+            $user->setActivationToken(md5(uniqid()));
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
@@ -56,7 +59,8 @@ class RegistrationController extends AbstractController
                     ->subject('Please Confirm your Email')
                     ->htmlTemplate('auth/confirmation_email.html.twig')
             );
-            // do anything else you need here, like send an email
+
+
 
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
@@ -101,5 +105,30 @@ class RegistrationController extends AbstractController
         $this->addFlash('success', 'Your email address has been verified.');
 
         return $this->redirectToRoute('app_register');
+    }
+
+    /**
+     * @Route("/activation/{token}", name="activation")
+     */
+    public function activation($token, UserRepository $userRepository) {
+        //on verifie si un utilsateur a ce token
+        $user = $userRepository->findOneBy(['activation_token' => $token]);
+
+        //si aucun utilisateur n'existe avec ce token
+        if (!$user){
+            //erreur 404
+            throw $this->createNotFoundException("Cette utilisateur n'existe pas");
+        }
+
+        //on supprime le token
+        $user->setActivationToken(null);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+
+        // on envoye un message flash
+        $this->addFlash('message', 'Vous avez bien activer votre compte');
+        //on retourne a l'acceuil
+        return $this->redirectToRoute('home');
     }
 }
