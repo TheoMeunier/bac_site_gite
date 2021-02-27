@@ -40,10 +40,22 @@ class Blog
      */
     private $imageBlogs;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $article;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity=CommentBlog::class, mappedBy="commentBlog")
+     */
+    private $commentBlogs;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
         $this->imageBlogs = new ArrayCollection();
+        $this->commentBlogs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -123,6 +135,41 @@ class Blog
             // set the owning side to null (unless already changed)
             if ($imageBlog->getImage() === $this) {
                 $imageBlog->setImage(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getArticle(): ?string
+    {
+        return $this->article;
+    }
+
+    /**
+     * @return Collection|CommentBlog[]
+     */
+    public function getCommentBlogs(): Collection
+    {
+        return $this->commentBlogs;
+    }
+
+    public function addCommentBlog(CommentBlog $commentBlog): self
+    {
+        if (!$this->commentBlogs->contains($commentBlog)) {
+            $this->commentBlogs[] = $commentBlog;
+            $commentBlog->setCommentBlog($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentBlog(CommentBlog $commentBlog): self
+    {
+        if ($this->commentBlogs->removeElement($commentBlog)) {
+            // set the owning side to null (unless already changed)
+            if ($commentBlog->getCommentBlog() === $this) {
+                $commentBlog->setCommentBlog(null);
             }
         }
 

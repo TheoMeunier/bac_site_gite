@@ -17,6 +17,7 @@ class BlogType extends AbstractType
         $builder
             ->add('title', TextType::class)
             ->add('description', TextareaType::class)
+            ->add('article', TextareaType::class)
             ->add('image',FileType::class,[
                 'multiple' => true,
                 'mapped' => false,

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -61,9 +63,15 @@ class User implements UserInterface
      */
     private $reset_token;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CommentBlog::class, mappedBy="User")
+     */
+    private $commentBlogs;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
+        $this->commentBlogs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -211,6 +219,36 @@ class User implements UserInterface
     public function setResetToken(?string $reset_token): self
     {
         $this->reset_token = $reset_token;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CommentBlog[]
+     */
+    public function getCommentBlogs(): Collection
+    {
+        return $this->commentBlogs;
+    }
+
+    public function addCommentBlog(CommentBlog $commentBlog): self
+    {
+        if (!$this->commentBlogs->contains($commentBlog)) {
+            $this->commentBlogs[] = $commentBlog;
+            $commentBlog->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentBlog(CommentBlog $commentBlog): self
+    {
+        if ($this->commentBlogs->removeElement($commentBlog)) {
+            // set the owning side to null (unless already changed)
+            if ($commentBlog->getUser() === $this) {
+                $commentBlog->setUser(null);
+            }
+        }
 
         return $this;
     }

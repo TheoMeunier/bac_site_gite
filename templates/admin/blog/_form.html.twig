@@ -2,6 +2,7 @@
     {{ form_start(form) }}
     {{ form_row(form.title) }}
     {{ form_row(form.description) }}
+    {{ form_row(form.article) }}
     {# Vérifier si la route est 'edit' on affiche les images #}
     {% if  app.request.attributes.get('_route') == 'admin_edit_blog' %}
         <div class="row flex justify-content-start flex-wrap">
