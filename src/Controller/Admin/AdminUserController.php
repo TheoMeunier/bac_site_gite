@@ -47,7 +47,7 @@ class AdminUserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $this->addFlash('message', "L'utilisateur a bien été modfier");
+            $this->addFlash('success', "L'utilisateur a bien été modfier");
             return $this->redirectToRoute('admin_user');
         }
 
@@ -68,6 +68,7 @@ class AdminUserController extends AbstractController
             $this->em->flush();
         }
 
+        $this->addFlash('success', "L'utilisateur a bien été supprimer");
         return $this->redirectToRoute('admin_user');
     }
 
