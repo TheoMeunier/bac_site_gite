@@ -68,7 +68,7 @@ class AdminBlogController extends AbstractController
             $this->em->persist($blog);
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success', 'votre category a bien ete crée');
+            $this->addFlash('success', 'Votre article a bien ete crée');
             return $this->redirectToRoute('admin_blog');
         }
 

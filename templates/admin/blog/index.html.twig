@@ -5,6 +5,8 @@
 {% block body %}
     <h1 class="mt-3">Nos Acticle</h1>
 
+    {{ include('_flashes.html.twig') }}
+
     <div class="text-right mb-3">
         <a href="{{ path('admin_new_blog' ) }} " class="btn btn-primary" type="button">Crée un article</a>
     </div>

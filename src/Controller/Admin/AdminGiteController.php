@@ -68,7 +68,7 @@ class AdminGiteController extends AbstractController
             $this->em->persist($gite);
             $this->getDoctrine()->getManager()->flush();
 
-            $this->addFlash('success', 'votre category a bien ete crée');
+            $this->addFlash('success', 'Votre bien a bien été crée');
             return $this->redirectToRoute('admin_gite');
         }
 
@@ -107,7 +107,7 @@ class AdminGiteController extends AbstractController
             }
 
             $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('success', 'Votre actircle a bien ete modifier');
+            $this->addFlash('success', 'Votre bien a bien été modifier');
 
             return $this->redirectToRoute('admin_gite');
         }
@@ -127,7 +127,7 @@ class AdminGiteController extends AbstractController
 
             $this->em->remove($gite);
             $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('success', 'Votre actircle a bien ete supprimer');
+            $this->addFlash('success', 'Votre bien a bien été supprimer');
 
         }
 

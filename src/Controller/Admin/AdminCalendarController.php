@@ -48,6 +48,7 @@ class AdminCalendarController extends AbstractController
             $entityManager->persist($calendar);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Votre réservation a bien été crée');
             return $this->redirectToRoute('admin_reservation');
         }
 
@@ -68,6 +69,7 @@ class AdminCalendarController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash('success', 'Votre réservation a bien été modifier');
             return $this->redirectToRoute('admin_reservation');
         }
 
@@ -86,7 +88,7 @@ class AdminCalendarController extends AbstractController
 
             $this->em->remove($calendar);
             $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('success', 'Votre actircle a bien ete supprimer');
+            $this->addFlash('success', 'Votre réservation a bien été supprimer');
 
         }
 

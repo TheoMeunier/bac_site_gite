@@ -50,6 +50,8 @@ class BlogController extends AbstractController
             $entityManager->persist($commentaires);
             $entityManager->flush();
 
+            //on crée un petit message
+            $this->addFlash('success', 'Votre commentaire a été crée');
             //on refait une redirection
             return $this->redirectToRoute('blog_show', [
                 'id' => $blog->getId()

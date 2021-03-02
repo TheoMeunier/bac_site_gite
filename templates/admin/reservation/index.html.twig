@@ -5,6 +5,8 @@
 {% block body %}
     <h1 class="mt-3">Nos Réservations</h1>
 
+    {{ include('_flashes.html.twig') }}
+
     <div class="text-right mt-3">
         <a href="{{ path('admin_new_reservation') }}" class="btn btn-primary mb-3">Crée une réservation</a>
     </div>
