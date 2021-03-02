@@ -7,6 +7,7 @@ use App\Entity\CommentBlog;
 use App\Entity\User;
 use App\Form\CommentBlogType;
 use App\Repository\BlogRepository;
+use App\Repository\CommentBlogRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,13 +28,11 @@ class BlogController extends AbstractController
     /**
      * @Route("/blog/{id}", name="blog_show")
      */
-    public function show(int $id, BlogRepository $repository, Request $request, Blog $blog, User $user): Response
+    public function show(int $id, BlogRepository $repository, Request $request, Blog $blog): Response
     {
         //on recupere l'entity
         $commentaires = new CommentBlog();
-        //on l'associe le commentaire a l'article
         $commentaires->setCommentBlog($blog);
-        $commentaires->setUser($user);
 
         //on traitre le commentaire
         $form = $this->createForm(CommentBlogType::class, $commentaires);
@@ -41,6 +40,12 @@ class BlogController extends AbstractController
 
         //on persiste les donnée
         if ($form->isSubmitted() && $form->isValid()) {
+            //on recupere l'utilisateur
+            $repository->findOneBy(['id' => $id]);
+            $user = $this->getUser();
+            $commentaires->setUser($user);
+            
+            //on persiste les donner
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($commentaires);
             $entityManager->flush();

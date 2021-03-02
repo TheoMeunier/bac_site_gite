@@ -43,7 +43,23 @@ class Blog
     /**
      * @ORM\Column(type="text")
      */
-    private $article;
+    private ?string $article;
+
+    /**
+     * @return string|null
+     */
+    public function getArticle(): ?string
+    {
+        return $this->article;
+    }
+
+    /**
+     * @param string|null $article
+     */
+    public function setArticle(?string $article): void
+    {
+        $this->article = $article;
+    }
 
     /**
      * @var ArrayCollection
@@ -139,11 +155,6 @@ class Blog
         }
 
         return $this;
-    }
-
-    public function getArticle(): ?string
-    {
-        return $this->article;
     }
 
     /**
