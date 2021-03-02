@@ -39,11 +39,13 @@ class BlogController extends AbstractController
         $form = $this->createForm(CommentBlogType::class, $commentaires);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()){
+        //on persiste les donnée
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($commentaires);
             $entityManager->flush();
 
+            //on refait une redirection
             return $this->redirectToRoute('blog_show', [
                 'id' => $blog->getId()
             ]);

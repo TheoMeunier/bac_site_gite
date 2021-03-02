@@ -57,7 +57,7 @@ class GiteController extends AbstractController
         }
         return $this->render('gite/show.html.twig', [
             'gite' => $giteRepository->find($id),
-             'form' => $form->createView()
+            'form' => $form->createView()
         ]);
     }
 
