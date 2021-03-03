@@ -57,6 +57,16 @@ class Calendar
      */
     private $text_color;
 
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
+     */
+    private $user;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Gite::class, cascade={"persist", "remove"})
+     */
+    private $gite;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -154,6 +164,30 @@ class Calendar
     public function setTextColor(string $text_color): self
     {
         $this->text_color = $text_color;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getGite(): ?Gite
+    {
+        return $this->gite;
+    }
+
+    public function setGite(?Gite $gite): self
+    {
+        $this->gite = $gite;
 
         return $this;
     }

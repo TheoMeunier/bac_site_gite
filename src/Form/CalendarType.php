@@ -3,6 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Calendar;
+use App\Entity\Gite;
+use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
@@ -27,6 +30,18 @@ class CalendarType extends AbstractType
             ->add('end', DateTimeType::class, [
                 'date_widget' => 'single_text',
                 'label' => 'form.calendar.end'
+            ])
+            ->add('user', EntityType::class,[
+                'required' => false,
+                'class' => User::class,
+                'choice_label' => 'email',
+                'multiple' => false
+            ])
+            ->add('gite', EntityType::class,[
+                'required' => false,
+                'class' => Gite::class,
+                'choice_label' => 'name',
+                'multiple' => false
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'form.calendar.description'
