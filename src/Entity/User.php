@@ -252,4 +252,14 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @param ArrayCollection $commentBlogs
+     * @return User
+     */
+    public function setCommentBlogs(ArrayCollection $commentBlogs): User
+    {
+        $this->commentBlogs = $commentBlogs;
+        return $this;
+    }
 }
