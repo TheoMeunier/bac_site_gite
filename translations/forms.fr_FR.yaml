@@ -1,0 +1,51 @@
+form:
+  blog:
+    title: Titre
+    description: Description
+    article: Article
+    image: Image
+
+  calendar:
+    title: Titre
+    start: Date d'arriver
+    end: Date de départ
+    description: Description
+    all_day: Toute la journée
+    background_color: Couleur de fond
+    border_color: Couleur de la bordur
+    text_color: Couleur du texte
+
+  commentaire:
+    commentaire: Commentaire
+
+  contact:
+    firstname: Prénom
+    lastname: Nom
+    phone: Téléphone
+    email: Email
+    message: Votre message
+
+  edit_user:
+    speudo: Nom
+    email: Email
+    roles: Rôles
+
+  gites:
+    name: Nom
+    surface: Surface
+    chambre: Chambres
+    personnes: Nombre de personnes
+    price: Prix
+    description: Description
+    image: Images
+
+  register:
+    speudo: Nom
+    email: Email
+    password: Mot de passe
+    repeat Password: Confirmez votre mot de passe
+
+  reset:
+    email: Email
+
+

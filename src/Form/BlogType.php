@@ -15,13 +15,20 @@ class BlogType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', TextType::class)
-            ->add('description', TextareaType::class)
-            ->add('article', TextareaType::class)
+            ->add('title', TextType::class,[
+                'label' => 'form.blog.title',
+            ])
+            ->add('description', TextareaType::class,[
+                'label' => 'form.blog.description',
+            ])
+            ->add('article', TextareaType::class,[
+                'label' => 'form.blog.article',
+            ])
             ->add('image',FileType::class,[
                 'multiple' => true,
                 'mapped' => false,
-                'required' => false
+                'required' => false,
+                'label' => 'form.blog.image',
             ] )
         ;
     }
@@ -30,6 +37,7 @@ class BlogType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Blog::class,
+            'translation_domain' => 'forms'
         ]);
     }
 }

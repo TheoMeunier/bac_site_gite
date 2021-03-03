@@ -13,7 +13,9 @@ class CommentBlogType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('commentaire', TextareaType::class)
+            ->add('commentaire', TextareaType::class,[
+                'label' => 'form.commentaire.commentaire'
+            ])
         ;
     }
 
@@ -21,6 +23,7 @@ class CommentBlogType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => CommentBlog::class,
+            'translation_domain' => 'forms'
         ]);
     }
 }

@@ -4,8 +4,11 @@ namespace App\Form;
 
 use App\Entity\Calendar;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,18 +17,30 @@ class CalendarType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
+            ->add('title', TextType::class,[
+                'label' => 'form.calendar.title'
+            ])
             ->add('start', DateTimeType::class, [
-                'date_widget' => 'single_text'
+                'date_widget' => 'single_text',
+                'label' => 'form.calendar.start'
             ])
             ->add('end', DateTimeType::class, [
-                'date_widget' => 'single_text'
+                'date_widget' => 'single_text',
+                'label' => 'form.calendar.end'
             ])
-            ->add('description')
+            ->add('description', TextareaType::class, [
+                'label' => 'form.calendar.description'
+            ])
             ->add('all_day')
-            ->add('background_color', ColorType::class)
-            ->add('border_color', ColorType::class)
-            ->add('text_color', ColorType::class)
+            ->add('background_color', ColorType::class,[
+                'label' => 'form.calendar.background_color'
+            ])
+            ->add('border_color', ColorType::class,[
+                'label' => 'form.calendar.border_color'
+            ])
+            ->add('text_color', ColorType::class,[
+                'label' => 'form.calendar.text_color'
+            ])
         ;
     }
 
@@ -33,6 +48,7 @@ class CalendarType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Calendar::class,
+            'translation_domain' => 'forms'
         ]);
     }
 }

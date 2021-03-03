@@ -15,24 +15,40 @@ class GiteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('surface', TextType::class)
-            ->add('chambres', TextType::class)
-            ->add('personnes', TextType::class)
-            ->add('price', TextType::class)
-            ->add('description', TextareaType::class)
+            ->add('name', TextType::class, [
+                'label' => 'form.gites.name'
+            ])
+            ->add('surface', TextType::class, [
+                'label' => 'form.gites.surface'
+            ])
+            ->add('chambres', TextType::class, [
+                'label' => 'form.gites.chambre'
+            ])
+            ->add('personnes', TextType::class, [
+                'label' => 'form.gites.personnes'
+            ])
+            ->add('price', TextType::class, [
+                'label' => 'form.gites.price'
+            ])
+            ->add('description', TextareaType::class, [
+                'label' => 'form.gites.description'
+            ])
             ->add('image', FileType::class, [
                 'multiple' => true,
                 'mapped' => false,
-                'required' => false
-            ])
-        ;
+                'required' => false,
+                'label' => 'form.gites.image',
+                'attr' => [
+                    'placeholder' => 'Choisir un fichier',
+                ],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => Gite::class,
+            'translation_domain' => 'forms'
         ]);
     }
 }

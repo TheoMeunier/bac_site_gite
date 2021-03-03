@@ -19,8 +19,12 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('speudo', TextType::class)
-            ->add('email')
+            ->add('speudo', TextType::class, [
+                'label' => 'form.register.speudo'
+            ])
+            ->add('email', TextType::class,[
+                'label' => 'form.register.email'
+            ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
@@ -32,6 +36,8 @@ class RegistrationFormType extends AbstractType
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'validators.register.password.invalid_message',
+                'first_options'  => ['label' => 'form.register.password'],
+                'second_options' => ['label' => 'form.register.repeat Password'],
                 'required' => true,
                 'constraints' => [
                     new NotBlank([
@@ -52,6 +58,7 @@ class RegistrationFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'translation_domain' => 'forms'
         ]);
     }
 }

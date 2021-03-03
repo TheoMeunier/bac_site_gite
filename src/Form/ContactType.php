@@ -15,11 +15,21 @@ class ContactType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstname', TextType::class)
-            ->add('lastname', TextType::class)
-            ->add('phone', TextType::class)
-            ->add('email', EmailType::class)
-            ->add('message', TextareaType::class)
+            ->add('firstname', TextType::class, [
+                'label' => 'form.contact.firstname'
+            ])
+            ->add('lastname', TextType::class, [
+                'label' => 'form.contact.lastname'
+            ])
+            ->add('phone', TextType::class, [
+                'label' => 'form.contact.phone'
+            ])
+            ->add('email', EmailType::class, [
+                'label' => 'form.contact.email'
+            ])
+            ->add('message', TextareaType::class, [
+                'label' => 'form.contact.message'
+            ])
         ;
     }
 
@@ -27,6 +37,7 @@ class ContactType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Contact::class,
+            'translation_domain' => 'forms'
         ]);
     }
 }
