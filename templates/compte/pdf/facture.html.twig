@@ -1,0 +1,71 @@
+{% extends 'compte/pdf/base_pdf.html.twig' %}
+
+{% block title_pdf %}{{ calendar.title }}{% endblock %}
+
+{% block body_pdf_content %}
+    <h2 class="mt-5">Titre du bien : {{ calendar.gite.name }}</h2>
+    <div class="pdf-description">
+        {{ calendar.gite.description | nl2br }}
+    </div>
+
+    <div class="mt-5 row">
+        <div class="col">
+            <h2>Information de l'agence</h2>
+            <table class="table">
+                <tr>
+                    <td>De </td>
+                    <td>L'agence de location</td>
+                </tr>
+                <tr>
+                    <td>A</td>
+                    <td>Ailly sur noye 80250</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col">
+            <h2 class="mt-4">Information suplementaire</h2>
+            <table class="table table-striped">
+                <tr>
+                    <td>Pour</td>
+                    <td>{{ calendar.user.email }}</td>
+                </tr>
+                <tr>
+                    <td>Date d'arriver</td>
+                    <td>{{ calendar.start | date('d/m/Y') }}</td>
+                </tr>
+                <tr>
+                    <td>Date de depart</td>
+                    <td>{{ calendar.end | date('d/m/Y') }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <h2 class="mt-5">Description</h2>
+            <table class="table table-striped">
+                <tr>
+                    <td>Surface</td>
+                    <td>{{ calendar.gite.surface }} m2</td>
+                </tr>
+                <tr>
+                    <td>Nombre de Chambre</td>
+                    <td>{{ calendar.gite.chambres }}</td>
+                </tr>
+                <tr>
+                    <td>Nombre de personnes max</td>
+                    <td>{{ calendar.gite.personnes }}</td>
+                </tr>
+                <tr>
+                    <td>Prix</td>
+                    <td>{{ calendar.gite.price }}€</td>
+                </tr>
+                <tr>
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -68,10 +68,16 @@ class User implements UserInterface
      */
     private $commentBlogs;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Calendar::class, mappedBy="user")
+     */
+    private $calendars;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
         $this->commentBlogs = new ArrayCollection();
+        $this->calendars = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -260,6 +266,36 @@ class User implements UserInterface
     public function setCommentBlogs(ArrayCollection $commentBlogs): User
     {
         $this->commentBlogs = $commentBlogs;
+        return $this;
+    }
+
+    /**
+     * @return Collection|Calendar[]
+     */
+    public function getCalendars(): Collection
+    {
+        return $this->calendars;
+    }
+
+    public function addCalendar(Calendar $calendar): self
+    {
+        if (!$this->calendars->contains($calendar)) {
+            $this->calendars[] = $calendar;
+            $calendar->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCalendar(Calendar $calendar): self
+    {
+        if ($this->calendars->removeElement($calendar)) {
+            // set the owning side to null (unless already changed)
+            if ($calendar->getUser() === $this) {
+                $calendar->setUser(null);
+            }
+        }
+
         return $this;
     }
 }

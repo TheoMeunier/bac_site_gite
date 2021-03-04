@@ -61,11 +61,17 @@ class Gite
      */
     private $imageGites;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Calendar::class, mappedBy="gite")
+     */
+    private $calendars;
+
 
     public function __construct()
     {
         $this->createdAt = new \DateTime();
         $this->imageGites = new ArrayCollection();
+        $this->calendars = new ArrayCollection();
     }
 
     public function getSlug(): \Symfony\Component\String\AbstractUnicodeString
@@ -194,6 +200,36 @@ class Gite
             // set the owning side to null (unless already changed)
             if ($imageGite->getGite() === $this) {
                 $imageGite->setGite(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Calendar[]
+     */
+    public function getCalendars(): Collection
+    {
+        return $this->calendars;
+    }
+
+    public function addCalendar(Calendar $calendar): self
+    {
+        if (!$this->calendars->contains($calendar)) {
+            $this->calendars[] = $calendar;
+            $calendar->setGite($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCalendar(Calendar $calendar): self
+    {
+        if ($this->calendars->removeElement($calendar)) {
+            // set the owning side to null (unless already changed)
+            if ($calendar->getGite() === $this) {
+                $calendar->setGite(null);
             }
         }
 

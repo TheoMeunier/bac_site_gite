@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CalendarRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\String\Slugger\AsciiSlugger;
 
 /**
  * @ORM\Entity(repositoryClass=CalendarRepository::class)
@@ -56,14 +57,13 @@ class Calendar
      * @ORM\Column(type="string", length=7)
      */
     private $text_color;
-
     /**
-     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="calendars")
      */
     private $user;
 
     /**
-     * @ORM\OneToOne(targetEntity=Gite::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Gite::class, inversedBy="calendars")
      */
     private $gite;
 
@@ -187,8 +187,14 @@ class Calendar
 
     public function setGite(?Gite $gite): self
     {
-        $this->gite = $gite;
+       $this->gite = $gite;
 
         return $this;
+    }
+
+    public function getSlug(): \Symfony\Component\String\AbstractUnicodeString
+    {
+        return (new AsciiSlugger())->slug($this->getTitle());
+
     }
 }

@@ -20,18 +20,39 @@
     <div class="mt-3 card">
         <div class="card-body">
             <h4 class="card-title">Mes reservations</h4>
-            <p class="card-text">
-                <strong>Email: </strong>{{ user.email }} <br>
-            </p>
+
+            <table class="table mt-4">
+                <thead class="thead">
+                <tr>
+                    <th>Arriver</th>
+                    <th>Départ</th>
+                    <th>Gite</th>
+                    <th>Prix</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+
+                <tbody class="tbody">
+                {% for calendar in user.calendars %}
+                    <tr>
+                        <th>{{ calendar.start|date('d/m/Y') }}</th>
+                        <th>{{ calendar.end|date('d/m/Y') }}</th>
+                        <th>{{ calendar.gite.name }}</th>
+                        <th>{{ calendar.gite.price }}€</th>
+                        <th><a href="{{ path('facture_pdf', {id: calendar.id}) }}" class="btn btn-primary btn-sm">Télécharger la facture</a></th>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 
     <div class="mt-3 mb-5 card">
         <div class="card-body">
-            <h4 class="card-title">Mes commentaire</h4>
+            <h4 class="card-title">Mes commentaires</h4>
             {% for commentBlog in user.commentBlogs %}
                 <p class="mt-3 card-text">
-                    <strong>article {{ commentBlog.commentBlog.id }}:</strong> {{ commentBlog.commentBlog.title}} <br>
+                    <strong>article {{ commentBlog.commentBlog.id }}:</strong> {{ commentBlog.commentBlog.title }} <br>
                     <strong> commentaire {{ commentBlog.id }}: </strong>{{ commentBlog.commentaire }}
                 </p>
                 <div style="display: flex" class="mb-4">

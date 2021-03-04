@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\CommentBlog;
 use App\Entity\User;
 use App\Form\CommentBlogType;
+use App\Repository\CalendarRepository;
 use App\Repository\UserRepository;
+use App\wkhtml\PDFRender;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +17,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class CompteController extends AbstractController
 {
-
+    const EXTENSION_PDF_FORMAT = ".pdf";
     private EntityManagerInterface $em;
 
     public function __construct( EntityManagerInterface $em)
@@ -28,6 +30,7 @@ class CompteController extends AbstractController
      */
     public function index(int $id, UserRepository $repository): Response
     {
+
         return $this->render('compte/index.html.twig', [
             'user' => $repository->find($id),
         ]);
@@ -77,5 +80,17 @@ class CompteController extends AbstractController
         }
 
         return $this->redirect($generator->generate('compte',['id' => $userid]));
+    }
+
+    /**
+     * @Route("/facture/pdf/{id}", name="facture_pdf")
+     */
+    public function generatePdf(int $id, PDFRender $pdf, CalendarRepository $repository): Response
+    {
+        $html = $this->renderView('compte/pdf/facture.html.twig', [
+            'calendar' => $repository->find($id),
+        ]);
+
+        return $pdf->render($html, $repository->find($id)->getSlug() . self::EXTENSION_PDF_FORMAT);
     }
 }
