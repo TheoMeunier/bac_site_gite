@@ -10,7 +10,7 @@
         <div class="col mb-4">
             <div class="card">
                 {% if gite.imageGite %}
-                    <img src="{{ asset('/uploads/' ~ gite.imageGite.name) }}" class="card-img-top" alt="..." style="width: 75%; height:auto">
+                    <img src="{{ asset('/uploads/' ~ gite.imageGite.name) }}" class="card-img-top" alt="..." style="width: 100%; height:auto">
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ gite.name }}</h5>
