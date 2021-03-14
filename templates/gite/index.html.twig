@@ -10,7 +10,7 @@
         <div class="col mb-4">
             <div class="card">
                 {% if gite.imageGite %}
-                    <img src="{{ asset('/uploads/' ~ gite.imageGite.name) | imagine_filter('thumb')}}" class="card-img-top" alt="...">
+                    <img src="{{ asset('/uploads/' ~ gite.imageGite.name) }}" class="card-img-top" alt="...">
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ gite.name }}</h5>
