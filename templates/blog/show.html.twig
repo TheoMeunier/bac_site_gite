@@ -41,7 +41,7 @@
 
         {% else %}
             <div>
-                <img src="{{ asset('/uploads/' ~ blog.imageBlog.name) | imagine_filter('medium') }}" alt=""
+                <img src="{{ asset('/uploads/' ~ blog.imageBlog.name)}}" alt=""
                      class=" d-block w-100">
             </div>
         {% endif %}
