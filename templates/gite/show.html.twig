@@ -15,7 +15,7 @@
                             <div class="carousel-inner">
                                 {% for imageGites in gite.imageGites %}
                                     <div class=" {% if loop.first %} carousel-item active {% else %} carousel-item {% endif %}">
-                                        <img src="{{ asset('/uploads/' ~ imageGites.name)}}"
+                                        <img src="{{ asset('/uploads/' ~ imageGites.name )}}"
                                              alt=""
                                              class=" d-block w-100">
                                     </div>

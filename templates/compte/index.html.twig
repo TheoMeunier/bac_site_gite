@@ -38,7 +38,7 @@
                         <th>{{ calendar.start|date('d/m/Y') }}</th>
                         <th>{{ calendar.end|date('d/m/Y') }}</th>
                         <th>{{ calendar.gite.name }}</th>
-                        <th>{{ calendar.gite.price }}€</th>
+                        <th>{{ calendar.gite.price }}</th>
                         <th><a href="{{ path('facture_pdf', {id: calendar.id}) }}" class="btn btn-primary btn-sm">Télécharger la facture</a></th>
                     </tr>
                 {% endfor %}
