@@ -8,7 +8,7 @@
     <div class=" mb-5 mt-3" style="max-width: 1000px">
         {% for blog in blog %}
             <div class="row no-gutters d-flex align-items-end">
-                <div class="col-md-4">
+                <div class="col-md-4 ">
                     {% if blog.imageBlog %}
                         <img src="{{ asset('/uploads/' ~ blog.imageBlog.name ) }}"
                              class="card-img-top d-flex justify-content-center" alt="{{ blog.title }}" style="width: 200px; height: auto">
@@ -17,9 +17,7 @@
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title">{{ blog.title }}</h5>
-                        <p class="card-text">T{{ blog.description }} Lorem ipsum dolor sit amet, consectetur adipisicing
-                            elit. Accusamus dolor ex explicabo id, iusto minima molestias nisi non odio odit officia
-                            perspiciatis possimus praesentium quia tempora ullam voluptate, voluptatum? Dignissimos!</p>
+                        <p class="card-text">T{{ blog.description }} </p>
                         <a href="{{ path('blog_show', {id: blog.id})}}" class="btn btn-primary"> En savoir plus</a>
                     </div>
                 </div>
