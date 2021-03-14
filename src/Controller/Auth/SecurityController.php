@@ -38,7 +38,7 @@ class SecurityController extends AbstractController
      */
     public function logout(): \Symfony\Component\HttpFoundation\RedirectResponse
     {
-       return $this->redirectToRoute('home/index.html.twig');
+       return $this->redirectToRoute('home');
     }
 
     /**
