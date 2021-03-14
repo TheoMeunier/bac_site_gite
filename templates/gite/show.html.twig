@@ -17,7 +17,9 @@
                                     <div class=" {% if loop.first %} carousel-item active {% else %} carousel-item {% endif %}">
                                         <img src="{{ asset('/uploads/' ~ imageGites.name )}}"
                                              alt=""
-                                             class=" d-block w-100">
+                                             class=" d-block w-100"
+                                             style="width: 100%; height:auto"
+                                        >
                                     </div>
                                 {% endfor %}
                             </div>
@@ -36,7 +38,7 @@
                     {% else %}
                         <div>
                             <img src="{{ asset('/uploads/' ~ gite.imageGite.name) }}" alt=""
-                                 class=" d-block w-100">
+                                 class=" d-block w-100" style="width: 100%; height:auto">
                         </div>
                     {% endif %}
                 </div>
