@@ -43,6 +43,11 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/oublie-pass", name="app_forgotten_password")
+     * @param Request $request
+     * @param UserRepository $userRepository
+     * @param MailerServiceInterface $mailer
+     * @param TokenGeneratorInterface $tokenGenerator
+     * @return Response
      */
     public function forgotten_pass(Request $request, UserRepository $userRepository, MailerServiceInterface $mailer,
                                    TokenGeneratorInterface $tokenGenerator): Response
