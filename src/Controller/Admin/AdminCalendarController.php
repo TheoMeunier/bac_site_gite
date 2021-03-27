@@ -21,7 +21,6 @@ class AdminCalendarController extends AbstractController
     {
         $this->gite = $repository;
         $this->em = $em;
-
     }
 
     /**
@@ -89,7 +88,6 @@ class AdminCalendarController extends AbstractController
             $this->em->remove($calendar);
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Votre réservation a bien été supprimer');
-
         }
 
         return $this->redirectToRoute('admin_reservation');

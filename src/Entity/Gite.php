@@ -77,7 +77,6 @@ class Gite
     public function getSlug(): \Symfony\Component\String\AbstractUnicodeString
     {
         return (new AsciiSlugger())->slug($this->getName());
-
     }
     public function getId(): ?int
     {
