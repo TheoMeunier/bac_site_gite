@@ -16,6 +16,7 @@
         <tr>
             <th>Id</th>
             <th>Titre</th>
+            <th>Création</th>
             <th>Action</th>
         </tr>
         </thead>
@@ -25,6 +26,7 @@
             <tr>
                 <th>{{ blog.id }}</th>
                 <th>{{ blog.title }}</th>
+                <th>{{ blog.createdAt .format('d/m/Y') }}</th>
                 <th>
                     <div class="div_btn">
                         <a href="{{ path('admin_edit_blog', {id : blog.id}) }}" class="btn btn-primary">Editer</a>

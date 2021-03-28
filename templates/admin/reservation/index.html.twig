@@ -26,8 +26,8 @@
             <tr>
                 <td>{{ calendar.id }}</td>
                 <td>{{ calendar.title }}</td>
-                <td>{{ calendar.start ? calendar.start|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ calendar.end ? calendar.end|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ calendar.start ? calendar.start|date('d/m/Y')}}</td>
+                <td>{{ calendar.end ? calendar.end|date('d/m/Y')  }}</td>
                 <td>
                     <a href="{{ path('admin_edit_reservation', {'id': calendar.id}) }}" class="btn btn-primary">Modifier</a>
                     <form method="post" action="{{ path('admin_delete_reservation', {id: calendar.id}) }}" style="display: inline-block" onsubmit="return confirm('Etes vous vraiment sur ?')">

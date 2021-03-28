@@ -16,6 +16,7 @@
         <tr>
             <th>Id</th>
             <th>Titre</th>
+            <th>Création</th>
             <th>Action</th>
         </tr>
         </thead>
@@ -25,6 +26,7 @@
             <tr>
                 <th>{{ gite.id }}</th>
                 <th>{{ gite.name }}</th>
+                <th>{{ gite.createdAt .format('d/m/Y') }}</th>
                 <th>
                     <div class="div_btn">
                         <a href="{{ path('admin_edit_gite', {id : gite.id}) }}" class="btn btn-primary">Editer</a>
